@@ -141,8 +141,5 @@ AlarmMasterAutomation\
 ■ 次のアクション案: <あれば>
 ```
 
-<!-- HOOK_TEST_MARKER_TEMP2 -->
-
-
 <!-- HOOK_TEST_MARKER_TEMP -->
 
