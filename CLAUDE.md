@@ -140,3 +140,6 @@ AlarmMasterAutomation\
 ■ SKILL.md/CLAUDE.md更新の要否: <あれば>
 ■ 次のアクション案: <あれば>
 ```
+
+<!-- HOOK_TEST_MARKER_TEMP -->
+
