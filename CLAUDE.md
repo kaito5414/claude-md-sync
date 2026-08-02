@@ -100,6 +100,10 @@ AlarmMasterAutomation\
      （空のマクロですら失敗する。原因未特定）ことを実機確認したため、
      `PERSONAL.XLSB`への反映では必ずこのスイッチを付ける。Import/保存の
      成否のみで成功判定するため、反映後のVBEでの手動確認が今まで以上に必須。
+   - `bas_staging\`には`.bas`だけでなく`.cls`も置ける（2026-08-02追加）。
+     `ThisWorkbook`等のドキュメントモジュールは`VBComponents.Remove`できない
+     ため、通常のクラスモジュールとは異なりCodeModule差し替えで反映される
+     （詳細はSKILL.md §5.7）。
 6. 終了コード（`$LASTEXITCODE`）を確認する。
    - `0` = 成功。`_backup\update_log_*.txt` の末尾を要約して報告する。
      ただし**これはプロジェクト全体のコンパイル保証ではない**（後述・SKILL.md §5.6参照）。
