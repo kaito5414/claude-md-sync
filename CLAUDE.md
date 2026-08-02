@@ -42,16 +42,29 @@ AlarmMasterAutomation\
 ├── CLAUDE.md                        ← このファイル
 ├── docs\
 │   └── vba-alarm-tooling-SKILL.md   ← コーディング規約の正本（Read必須）
+├── .github\                         ← GitHub Actions（2026-08-02追加）
+│   ├── workflows\vba-lint.yml       ← push/PR時にsrc\配下の.bas/.clsを自動チェック
+│   └── scripts\Check-VbaConventions.ps1
 ├── src\                             ← 現行.bas/.cls/.iniのマスターコピー
-│   ├── (直下)                      ← Alarm_Master.xlsm向け（ThisWorkbook.cls等含む）
+│   ├── (直下)                      ← Alarm_Master.xlsm向け（ThisWorkbook.cls・modSrcExport.bas等含む）
 │   ├── Alarm_Master\                ← Alarm_Master.xlsm専用（modAlarmOps.bas等、直下と重複する場合あり）
-│   └── PERSONAL\                    ← PERSONAL.XLSB専用（CSV_NZEd_NetAct.bas等）
-├── bas_staging\                     ← 今回反映する差分だけを置く（対象ブックに応じてsrc\の該当フォルダからコピー）
+│   └── PERSONAL\                    ← PERSONAL.XLSB専用（CSV_NZEd_NetAct.bas・modSrcExport.bas等）
+├── bas_staging\                     ← 今回反映する差分だけを置く（対象ブックに応じてsrc\の該当フォルダからコピー。.bas/.cls両対応）
 ├── Update-AlarmMaster.ps1           ← 本体スクリプト（勝手に書き換えない）
 ├── Run_AlarmMaster_Update.bat       ← 手動実行用ランチャー
 └── _backup\                         ← 自動生成。世代バックアップ＋ログ
-    └── update_log_*.txt
+    ├── update_log_*.txt
+    └── export_log_AlarmMaster.txt / export_log_PERSONAL.txt  ← modSrcExport.basのログ（2026-08-02追加）
 ```
+
+## VBAソース自動エクスポート（2026-08-02追加）
+
+`src\`→ブックへの反映（本ワークフローの主目的）とは逆方向に、**両ブックとも保存時に`modSrcExport.bas`が全VBAモジュールを`src\`へ自動Exportする**仕組みが動いている。VBE上で直接編集された変更が`src\`に反映されないまま失われる事故を防ぐのが目的（自動commit/pushはしない。詳細はSKILL.md §5.7）。
+
+このため、ユーザーがExcel上でブックを保存した後は、`git status`に**Claude Codeが関与していない差分**が現れることがある。これは異常ではないが、通常のsrc編集より一段慎重に扱うこと：
+- 差分の内容を読み、意味のある変更か、VBE内部の表記正規化（SKILL.md §5.7の既知の癖）に過ぎないかを判断する。
+- 台帳.cls（内部コンポーネント名`Sheet1`）のような、`src\`の慣習的ファイル名と実際のVBAコンポーネント名が食い違うケースでは重複ファイルが生成されうる（SKILL.md §5.7未解決課題）。安易に両方コミットせず、ユーザーに確認する。
+- コミットするかどうかは都度ユーザーに確認する（無断でコミットしない）。
 
 ## 標準ワークフロー
 
