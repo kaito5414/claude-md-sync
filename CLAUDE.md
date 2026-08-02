@@ -45,6 +45,8 @@ AlarmMasterAutomation\
 ├── .github\                         ← GitHub Actions（2026-08-02追加）
 │   ├── workflows\vba-lint.yml       ← push/PR時にsrc\配下の.bas/.clsを自動チェック
 │   └── scripts\Check-VbaConventions.ps1
+├── .githooks\pre-commit              ← コミット前チェック（2026-08-02追加。要 core.hooksPath設定）
+├── .gitattributes                    ← .githooks配下等をLF固定化
 ├── src\                             ← 現行.bas/.cls/.iniのマスターコピー
 │   ├── (直下)                      ← Alarm_Master.xlsm向け（ThisWorkbook.cls・modSrcExport.bas等含む）
 │   ├── Alarm_Master\                ← Alarm_Master.xlsm専用（modAlarmOps.bas等、直下と重複する場合あり）
