@@ -106,6 +106,14 @@ AlarmMasterAutomation\
      `ThisWorkbook`等のドキュメントモジュールは`VBComponents.Remove`できない
      ため、通常のクラスモジュールとは異なりCodeModule差し替えで反映される
      （詳細はSKILL.md §5.7）。
+   - `-VisibleCompileCheck`（2026-08-02追加）: 既定の`Z_CompileCheck`は
+     プロジェクト全体のコンパイルを保証しない（SKILL.md §5.6）。より確実に
+     全体コンパイルを確認したい場合にこのスイッチを付けると、
+     `Excel.Visible=True`でVBEの「デバッグ→VBAProjectのコンパイル」を実行し、
+     エラー時に自動で開くVBEウィンドウの出現を監視して判定する（SKILL.md
+     §5.6c、実機検証済み）。**画面にExcelウィンドウが一時的に表示されるため、
+     使用前に必ずユーザーに一言断ること**。`-SkipCompileCheck`とは併用不可。
+     GitHub Actionsでは使えずローカル専用。既定では付けない。
 6. 終了コード（`$LASTEXITCODE`）を確認する。
    - `0` = 成功。`_backup\update_log_*.txt` の末尾を要約して報告する。
      ただし**これはプロジェクト全体のコンパイル保証ではない**（後述・SKILL.md §5.6参照）。
