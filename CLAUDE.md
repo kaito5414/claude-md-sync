@@ -123,9 +123,13 @@ AlarmMasterAutomation\
 - 本番ブックを、このスクリプトを介さずに直接VBEやCOM経由で書き換えない。
 - 同一の失敗に対して**連続3回を超える自動リトライをしない**。3回失敗したら
   作業を止めてユーザーに判断を仰ぐ。
-- `bas_staging\` 以外のフォルダにある `.bas` を確認なしに取り込まない。
+- `bas_staging\` 以外のフォルダにある `.bas`/`.cls` を確認なしに取り込まない。
 - `_backup\` 配下のファイルを削除・上書きしない。
 - `Update-AlarmMaster.ps1` の仕様変更は、必ず変更内容を提示してから行う。
+- `modSrcExport.bas`によるブック保存時の自動Export差分（`git status`に現れる、
+  Claude Codeが関与していない変更）を無断でcommitしない。必ず内容をレビューし、
+  ユーザーに確認してからcommitする（詳細は前掲「VBAソース自動エクスポート」節、
+  SKILL.md §5.7）。
 - 生データシート（NZEd/NetAct）を直接改変するロジックを書かない。
 - Alarm_Master.xlsm側の外部アプリ起動処理は `Shell.Application`/`WScript.Shell` を
   避け、Win32 API `ShellExecute` 直接呼び出しを踏襲する。
